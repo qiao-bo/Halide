@@ -2884,7 +2884,7 @@ WEAK int halide_d3d12compute_device_release(void *user_context) {
 namespace {
 
 int do_multidimensional_copy(d3d12_device *device, const device_copy &c,
-                                    uint64_t src_offset, uint64_t dst_offset, int dimensions) {
+                             uint64_t src_offset, uint64_t dst_offset, int dimensions) {
     TRACELOG;
 
     if (dimensions == 0) {

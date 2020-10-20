@@ -1937,7 +1937,6 @@ protected:
     const TBase def_{TBase()};
     const Expr def_expr_;
 
-
     Expr get_def_expr() const override {
         return def_expr_;
     }
@@ -2040,7 +2039,6 @@ protected:
     using TBase = typename Super::TBase;
 
     const Expr min_, max_;
-
 
     void set_def_min_max() override {
         Super::set_def_min_max();
@@ -2450,7 +2448,6 @@ protected:
         return t;
     }
 
-
     GeneratorOutput_Buffer(const std::string &name, const std::vector<Type> &t = {}, int d = -1)
         : Super(name, IOKind::Buffer, my_types(t), d) {
     }
@@ -2571,7 +2568,6 @@ private:
 protected:
     using TBase = typename Super::TBase;
 
-
     GeneratorOutput_Func(const std::string &name)
         : Super(name, IOKind::Function, std::vector<Type>{}, -1) {
     }
@@ -2643,7 +2639,6 @@ private:
 
 protected:
     using TBase = typename Super::TBase;
-
 
     explicit GeneratorOutput_Arithmetic(const std::string &name)
         : Super(name, IOKind::Function, {type_of<TBase>()}, 0) {
