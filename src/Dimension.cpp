@@ -89,10 +89,6 @@ Dimension Dimension::set_estimate(Expr min, Expr extent) {
     return *this;
 }
 
-Dimension Dimension::dim(int i) {
-    return Dimension(param, i, f);
-}
-
 Dimension Dimension::dim(int i) const {
     return Dimension(param, i, f);
 }
