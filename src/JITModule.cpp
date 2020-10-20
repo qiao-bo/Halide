@@ -60,7 +60,7 @@ struct SharedCudaContext {
 
     // Will be created on first use by a jitted kernel that uses it
     SharedCudaContext()
-        : ptr(0), lock(0) {
+        : ptr(nullptr), lock(0) {
     }
 
     // Note that we never free the context, because static destructor

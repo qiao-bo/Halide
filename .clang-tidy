@@ -10,6 +10,7 @@ Checks: >
     bugprone-sizeof-expression,
     bugprone-string-constructor,
     modernize-use-emplace,
+    modernize-use-nullptr,
     modernize-use-override,
     performance-move-const-arg,
     performance-noexcept-move-constructor,

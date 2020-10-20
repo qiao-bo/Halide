@@ -159,7 +159,7 @@ struct FuncInfo {
     }
 
     bool allocated() const {
-        return (values.data() != NULL);
+        return (values.data() != nullptr);
     }
 };
 

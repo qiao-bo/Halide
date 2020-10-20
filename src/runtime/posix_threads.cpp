@@ -50,7 +50,7 @@ struct spawned_thread {
 WEAK void *spawn_thread_helper(void *arg) {
     spawned_thread *t = (spawned_thread *)arg;
     t->f(t->closure);
-    return NULL;
+    return nullptr;
 }
 
 }  // namespace Internal
@@ -66,13 +66,13 @@ WEAK struct halide_thread *halide_spawn_thread(void (*f)(void *), void *closure)
     t->f = f;
     t->closure = closure;
     t->handle = 0;
-    pthread_create(&t->handle, NULL, spawn_thread_helper, t);
+    pthread_create(&t->handle, nullptr, spawn_thread_helper, t);
     return (halide_thread *)t;
 }
 
 WEAK void halide_join_thread(struct halide_thread *thread_arg) {
     spawned_thread *t = (spawned_thread *)thread_arg;
-    void *ret = NULL;
+    void *ret = nullptr;
     pthread_join(t->handle, &ret);
     free(t);
 }
@@ -101,8 +101,8 @@ struct thread_parker {
 
     ALWAYS_INLINE thread_parker()
         : should_park(false) {
-        pthread_mutex_init(&mutex, NULL);
-        pthread_cond_init(&condvar, NULL);
+        pthread_mutex_init(&mutex, nullptr);
+        pthread_cond_init(&condvar, nullptr);
         should_park = false;
     }
 

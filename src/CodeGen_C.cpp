@@ -2053,7 +2053,7 @@ void CodeGen_C::visit(const Call *op) {
         if (op->args.empty()) {
             internal_assert(op->type.handle_type);
             // Add explicit cast so that different structs can't cache to the same value
-            rhs << "(" << print_type(op->type) << ")(NULL)";
+            rhs << "(" << print_type(op->type) << ")(nullptr)";
         } else if (op->type == type_of<halide_dimension_t *>()) {
             // Emit a shape
 
