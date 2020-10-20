@@ -93,7 +93,7 @@ Dimension Dimension::dim(int i) {
     return Dimension(param, i, f);
 }
 
-const Dimension Dimension::dim(int i) const {
+Dimension Dimension::dim(int i) const {
     return Dimension(param, i, f);
 }
 
