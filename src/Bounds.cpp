@@ -1983,8 +1983,9 @@ private:
         }
 
     public:
-        int count{0};
-        CountVars() {
+        int count;
+        CountVars()
+            : count(0) {
         }
     };
 

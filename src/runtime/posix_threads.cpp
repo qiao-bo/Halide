@@ -93,13 +93,14 @@ namespace Synchronization {
 struct thread_parker {
     pthread_mutex_t mutex;
     pthread_cond_t condvar;
-    bool should_park{false};
+    bool should_park;
 
 #if __cplusplus >= 201103L
     thread_parker(const thread_parker &) = delete;
 #endif
 
-    ALWAYS_INLINE thread_parker() {
+    ALWAYS_INLINE thread_parker()
+        : should_park(false) {
         pthread_mutex_init(&mutex, NULL);
         pthread_cond_init(&condvar, NULL);
         should_park = false;

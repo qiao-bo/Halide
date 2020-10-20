@@ -419,7 +419,7 @@ class Interleaver : public IRMutator {
 
     using IRMutator::visit;
 
-    bool should_deinterleave{false};
+    bool should_deinterleave;
     int num_lanes;
 
     Expr deinterleave_expr(Expr e) {
@@ -804,7 +804,8 @@ class Interleaver : public IRMutator {
     }
 
 public:
-    Interleaver() {
+    Interleaver()
+        : should_deinterleave(false) {
     }
 };
 

@@ -17,7 +17,7 @@ using std::vector;
 
 struct DefinitionContents {
     mutable RefCount ref_count;
-    bool is_init{true};
+    bool is_init;
     Expr predicate;
     std::vector<Expr> values, args;
     StageSchedule stage_schedule;
@@ -25,7 +25,7 @@ struct DefinitionContents {
     std::string source_location;
 
     DefinitionContents()
-        : predicate(const_true()) {
+        : is_init(true), predicate(const_true()) {
     }
 
     void accept(IRVisitor *visitor) const {

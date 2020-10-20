@@ -218,11 +218,12 @@ struct FuncScheduleContents {
     std::vector<Bound> bounds;
     std::vector<Bound> estimates;
     std::map<std::string, Internal::FunctionPtr> wrappers;
-    MemoryType memory_type{MemoryType::Auto};
-    bool memoized{false}, async{false};
+    MemoryType memory_type;
+    bool memoized, async;
 
     FuncScheduleContents()
-        : store_level(LoopLevel::inlined()), compute_level(LoopLevel::inlined()){};
+        : store_level(LoopLevel::inlined()), compute_level(LoopLevel::inlined()),
+          memory_type(MemoryType::Auto), memoized(false), async(false){};
 
     // Pass an IRMutator through to all Exprs referenced in the FuncScheduleContents
     void mutate(IRMutator *mutator) {
@@ -278,13 +279,15 @@ struct StageScheduleContents {
     std::vector<PrefetchDirective> prefetches;
     FuseLoopLevel fuse_level;
     std::vector<FusedPair> fused_pairs;
-    bool touched{false};
-    bool allow_race_conditions{false};
-    bool atomic{false};
-    bool override_atomic_associativity_test{false};
+    bool touched;
+    bool allow_race_conditions;
+    bool atomic;
+    bool override_atomic_associativity_test;
 
     StageScheduleContents()
-        : fuse_level(FuseLoopLevel()) {
+        : fuse_level(FuseLoopLevel()), touched(false),
+          allow_race_conditions(false), atomic(false),
+          override_atomic_associativity_test(false) {
     }
 
     // Pass an IRMutator through to all Exprs referenced in the StageScheduleContents

@@ -58,8 +58,9 @@ class DebugSections {
     bool calibrated;
 
     struct FieldFormat {
-        uint64_t name{0}, form{0};
-        FieldFormat() {
+        uint64_t name, form;
+        FieldFormat()
+            : name(0), form(0) {
         }
         FieldFormat(uint64_t n, uint64_t f)
             : name(n), form(f) {
@@ -67,9 +68,10 @@ class DebugSections {
     };
 
     struct EntryFormat {
-        uint64_t code{0}, tag{0};
-        bool has_children{false};
-        EntryFormat() {
+        uint64_t code, tag;
+        bool has_children;
+        EntryFormat()
+            : code(0), tag(0), has_children(false) {
         }
         vector<FieldFormat> fields;
     };
@@ -83,12 +85,17 @@ class DebugSections {
 
     struct GlobalVariable {
         std::string name;
-        TypeInfo *type{nullptr};
-        uint64_t type_def_loc{0};
-        uint64_t def_loc{0}, spec_loc{0};
-        uint64_t addr{0};
+        TypeInfo *type;
+        uint64_t type_def_loc;
+        uint64_t def_loc, spec_loc;
+        uint64_t addr;
         GlobalVariable()
-            : name("") {
+            : name(""),
+              type(nullptr),
+              type_def_loc(0),
+              def_loc(0),
+              spec_loc(0),
+              addr(0) {
         }
         bool operator<(const GlobalVariable &other) const {
             return addr < other.addr;
@@ -113,25 +120,30 @@ class DebugSections {
 
     struct LocalVariable {
         std::string name;
-        TypeInfo *type{nullptr};
-        int stack_offset{0};
-        uint64_t type_def_loc{0};
-        uint64_t def_loc{0}, origin_loc{0};
+        TypeInfo *type;
+        int stack_offset;
+        uint64_t type_def_loc;
+        uint64_t def_loc, origin_loc;
         // Some local vars are only alive for certain address ranges
         // (e.g. those inside a lexical block). If the ranges vector
         // is empty, the variables are alive for the entire containing
         // function.
         vector<LiveRange> live_ranges;
         LocalVariable()
-            : name("") {
+            : name(""),
+              type(nullptr),
+              stack_offset(0),
+              type_def_loc(0),
+              def_loc(0),
+              origin_loc(0) {
         }
     };
 
     struct FunctionInfo {
         std::string name;
-        uint64_t pc_begin{0}, pc_end{0};
+        uint64_t pc_begin, pc_end;
         vector<LocalVariable> variables;
-        uint64_t def_loc{0}, spec_loc{0};
+        uint64_t def_loc, spec_loc;
         // The stack variable offsets are w.r.t either:
         // gcc: the top of the stack frame (one below the return address to the caller)
         // clang with frame pointers: the bottom of the stack frame (one above the return address to this function)
@@ -141,7 +153,7 @@ class DebugSections {
                ClangFP,
                ClangNoFP } frame_base;
         FunctionInfo()
-            : name("") {
+            : name(""), pc_begin(0), pc_end(0), def_loc(0), spec_loc(0) {
         }
 
         bool operator<(const FunctionInfo &other) const {
@@ -163,8 +175,8 @@ class DebugSections {
 
     struct TypeInfo {
         std::string name;
-        uint64_t size{0};
-        uint64_t def_loc{0};
+        uint64_t size;
+        uint64_t def_loc;
         vector<LocalVariable> members;
 
         // TypeInfo can also be used to represent a pointer to
@@ -178,9 +190,10 @@ class DebugSections {
                Typedef,
                Const,
                Reference,
-               Array } type{Primitive};
+               Array } type;
 
-        TypeInfo() {
+        TypeInfo()
+            : size(0), def_loc(0), type(Primitive) {
         }
     };
     vector<TypeInfo> types;

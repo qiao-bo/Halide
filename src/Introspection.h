@@ -100,12 +100,13 @@ struct A {
     int an_int;
 
     class B {
-        int private_member{17};
+        int private_member;
 
     public:
         float a_float;
         A *parent;
-        B() {
+        B()
+            : private_member(17) {
             a_float = private_member * 2.0f;
         }
     };

@@ -228,11 +228,12 @@ ALWAYS_INLINE void atomic_thread_fence_acquire() {
 }  // namespace
 
 class spin_control {
-    int spin_count{40};
+    int spin_count;
 
 public:
     // Everyone says this should be 40. Have not measured it.
-    ALWAYS_INLINE spin_control() {
+    ALWAYS_INLINE spin_control()
+        : spin_count(40) {
     }
 
     ALWAYS_INLINE bool should_spin() {
@@ -277,12 +278,13 @@ struct word_lock_queue_data {
     // The only cost is the O(n) processing, but this only needs to be done
     // once for each node, and therefore isn't too expensive.
 
-    word_lock_queue_data *next{NULL};
-    word_lock_queue_data *prev{NULL};
+    word_lock_queue_data *next;
+    word_lock_queue_data *prev;
 
-    word_lock_queue_data *tail{NULL};
+    word_lock_queue_data *tail;
 
-    ALWAYS_INLINE word_lock_queue_data() {
+    ALWAYS_INLINE word_lock_queue_data()
+        : next(NULL), prev(NULL), tail(NULL) {
     }
 
     // Inlined, empty dtor needed to avoid confusing MachO builds
@@ -291,13 +293,14 @@ struct word_lock_queue_data {
 };
 
 class word_lock {
-    uintptr_t state{0};
+    uintptr_t state;
 
     void lock_full();
     void unlock_full();
 
 public:
-    ALWAYS_INLINE word_lock() {
+    ALWAYS_INLINE word_lock()
+        : state(0) {
     }
     ALWAYS_INLINE void lock() {
         if_tsan_pre_lock(this);
@@ -459,13 +462,14 @@ WEAK void word_lock::unlock_full() {
 struct queue_data {
     thread_parker parker;  // TODO: member or pointer?
 
-    uintptr_t sleep_address{0};
+    uintptr_t sleep_address;
 
-    queue_data *next{NULL};
+    queue_data *next;
 
-    uintptr_t unpark_info{0};
+    uintptr_t unpark_info;
 
-    ALWAYS_INLINE queue_data() {
+    ALWAYS_INLINE queue_data()
+        : sleep_address(0), next(NULL), unpark_info(0) {
     }
     // Inlined, empty dtor needed to avoid confusing MachO builds
     ALWAYS_INLINE ~queue_data() {
@@ -589,10 +593,11 @@ WEAK void unlock_bucket_pair(bucket_pair &buckets) {
 }
 
 struct validate_action {
-    bool unpark_one{false};
-    uintptr_t invalid_unpark_info{0};
+    bool unpark_one;
+    uintptr_t invalid_unpark_info;
 
-    ALWAYS_INLINE validate_action() {
+    ALWAYS_INLINE validate_action()
+        : unpark_one(false), invalid_unpark_info(0) {
     }
 };
 
@@ -1084,10 +1089,11 @@ WEAK uintptr_t wait_parking_control_unpark(void *control, int unparked, bool mor
 }
 
 class fast_cond {
-    uintptr_t state{0};
+    uintptr_t state;
 
 public:
-    ALWAYS_INLINE fast_cond() {
+    ALWAYS_INLINE fast_cond()
+        : state(0) {
     }
 
     ALWAYS_INLINE void signal() {

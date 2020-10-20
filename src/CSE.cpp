@@ -337,7 +337,7 @@ namespace {
 // Normalize all names in an expr so that expr compares can be done
 // without worrying about mere name differences.
 class NormalizeVarNames : public IRMutator {
-    int counter{0};
+    int counter;
 
     map<string, string> new_names;
 
@@ -361,7 +361,8 @@ class NormalizeVarNames : public IRMutator {
     }
 
 public:
-    NormalizeVarNames() {
+    NormalizeVarNames()
+        : counter(0) {
     }
 };
 

@@ -24,7 +24,7 @@ protected:
     Internal::Parameter param;
 
     /** Is this an input or an output? OutputImageParam is the base class for both. */
-    Argument::Kind kind{Argument::InputScalar};
+    Argument::Kind kind;
 
     /** If Input: Func representation of the ImageParam.
      * If Output: Func that creates this OutputImageParam.
@@ -41,7 +41,8 @@ protected:
 
 public:
     /** Construct a null image parameter handle. */
-    OutputImageParam() {
+    OutputImageParam()
+        : kind(Argument::InputScalar) {
     }
 
     /** Get the name of this Param */

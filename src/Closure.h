@@ -47,21 +47,22 @@ public:
         Type type;
 
         /** The dimensionality of the buffer. */
-        uint8_t dimensions{0};
+        uint8_t dimensions;
 
         /** The buffer is read from. */
-        bool read{false};
+        bool read;
 
         /** The buffer is written to. */
-        bool write{false};
+        bool write;
 
         /** The buffer is a texture */
-        MemoryType memory_type{MemoryType::Auto};
+        MemoryType memory_type;
 
         /** The size of the buffer if known, otherwise zero. */
-        size_t size{0};
+        size_t size;
 
-        Buffer() {
+        Buffer()
+            : dimensions(0), read(false), write(false), memory_type(MemoryType::Auto), size(0) {
         }
     };
 

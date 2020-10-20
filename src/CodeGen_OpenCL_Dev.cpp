@@ -800,9 +800,10 @@ void CodeGen_OpenCL_Dev::add_kernel(Stmt s,
 namespace {
 struct BufferSize {
     string name;
-    size_t size{0};
+    size_t size;
 
-    BufferSize() {
+    BufferSize()
+        : size(0) {
     }
     BufferSize(string name, size_t size)
         : name(std::move(name)), size(size) {

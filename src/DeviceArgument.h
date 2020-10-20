@@ -34,17 +34,17 @@ struct DeviceArgument {
      * the expected interpretation of the buffer data (e.g. float vs int),
      * but there is no runtime enforcement of this at present.
      */
-    bool is_buffer{false};
+    bool is_buffer;
 
     /** If is_buffer == true and memory_type == GPUTexture, this argument should be
      * passed and accessed through texture sampler operations instead of
      * directly as a memory array
      */
-    MemoryType memory_type{MemoryType::Auto};
+    MemoryType memory_type;
 
     /** If is_buffer is true, this is the dimensionality of the buffer.
      * If is_buffer is false, this value is ignored (and should always be set to zero) */
-    uint8_t dimensions{0};
+    uint8_t dimensions;
 
     /** If this is a scalar parameter, then this is its type.
      *
@@ -55,22 +55,29 @@ struct DeviceArgument {
     Type type;
 
     /** The static size of the argument if known, or zero otherwise. */
-    size_t size{0};
+    size_t size;
 
     /** The index of the first element of the argument when packed into a wider
      * type, such as packing scalar floats into vec4 for GLSL. */
-    size_t packed_index{0};
+    size_t packed_index;
 
     /** For buffers, these two variables can be used to specify whether the
      * buffer is read or written. By default, we assume that the argument
      * buffer is read-write and set both flags. */
-    bool read{false};
-    bool write{false};
+    bool read;
+    bool write;
 
     /** Alignment information for integer parameters. */
     ModulusRemainder alignment;
 
-    DeviceArgument() {
+    DeviceArgument()
+        : is_buffer(false),
+          memory_type(MemoryType::Auto),
+          dimensions(0),
+          size(0),
+          packed_index(0),
+          read(false),
+          write(false) {
     }
 
     DeviceArgument(const std::string &_name,
@@ -85,6 +92,7 @@ struct DeviceArgument {
           dimensions(_dimensions),
           type(_type),
           size(_size),
+          packed_index(0),
           read(_is_buffer),
           write(_is_buffer) {
     }

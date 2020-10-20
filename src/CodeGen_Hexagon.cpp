@@ -499,7 +499,8 @@ class IdPair {
     Intrinsic::ID i128 = Intrinsic::not_intrinsic;
 
 public:
-    constexpr IdPair() {
+    constexpr IdPair()
+        : i64(Intrinsic::not_intrinsic), i128(Intrinsic::not_intrinsic) {
     }
     constexpr IdPair(Intrinsic::ID i64, Intrinsic::ID i128)
         : i64(i64), i128(i128) {

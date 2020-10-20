@@ -38,14 +38,14 @@ public:
     Expr shared_mem_size;
 
     ExtractBounds()
-        : shared_mem_size(0) {
+        : shared_mem_size(0), found_shared(false) {
         for (int i = 0; i < 4; i++) {
             num_threads[i] = num_blocks[i] = 1;
         }
     }
 
 private:
-    bool found_shared{false};
+    bool found_shared;
 
     using IRVisitor::visit;
 

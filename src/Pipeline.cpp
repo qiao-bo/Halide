@@ -113,10 +113,10 @@ struct PipelineContents {
 
     std::vector<Stmt> requirements;
 
-    bool trace_pipeline{false};
+    bool trace_pipeline;
 
     PipelineContents()
-        : module("", Target()) {
+        : module("", Target()), trace_pipeline(false) {
         user_context_arg.arg = Argument("__user_context", Argument::InputScalar, type_of<const void *>(), 0, ArgumentEstimates{});
         user_context_arg.param = Parameter(Handle(), false, 0, "__user_context");
     }
